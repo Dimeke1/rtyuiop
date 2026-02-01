@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="kk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AshyqSabaq • Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-card: #020617;
+            --accent: #3b82f6;
+            --accent-soft: rgba(59, 130, 246, 0.2);
+            --text-main: #e5e7eb;
+            --text-muted: #9ca3af;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-main);
+        }
+
+        .shell {
+            width: 100%;
+            max-width: 960px;
+            padding: 20px;
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at top left, #22c55e, #16a34a, #15803d);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+            font-size: 22px;
+        }
+
+        .logo-text-main {
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            font-size: 1.1rem;
+        }
+
+        .logo-text-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            font-size: 0.72rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            color: var(--text-muted);
+        }
+
+        .layout {
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 20px 55px rgba(15, 23, 42, 0.95);
+            padding: 16px;
+            display: grid;
+            grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.5fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 860px) {
+            .layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .card {
+            background: #020617;
+            border-radius: 16px;
+            border: 1px solid rgba(55, 65, 81, 0.9);
+            padding: 14px 14px 12px;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            margin: 0 0 4px;
+        }
+
+        h2 {
+            font-size: 1rem;
+            margin: 0 0 4px;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 8px 11px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text-main);
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: rgba(59, 130, 246, 0.9);
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.7);
+        }
+
+        .btn {
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.18s ease-out;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #020617;
+            color: var(--text-main);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.06);
+        }
+
+        .btn-ghost {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(148, 163, 184, 0.6);
+            color: var(--text-muted);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-main);
+            border-color: rgba(148, 163, 184, 0.95);
+        }
+
+        .btn-full {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .helper {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .input-row input {
+            flex: 1;
+        }
+
+        .toggle-visibility-btn {
+            padding: 6px 10px;
+            font-size: 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.15s ease-out;
+        }
+
+        .toggle-visibility-btn:hover {
+            border-color: rgba(148, 163, 184, 1);
+            color: var(--text-main);
+        }
+
+        .error {
+            font-size: 0.78rem;
+            color: #fca5a5;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .results-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        .pill-muted {
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .scroll-y {
+            max-height: 430px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .scroll-y::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scroll-y::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.6);
+            border-radius: 999px;
+        }
+
+        .feed-empty {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding: 8px 0 4px;
+        }
+
+        .result-item {
+            padding: 11px 9px 9px;
+            border-bottom: 1px solid rgba(31, 41, 55, 0.95);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .result-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-user {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: radial-gradient(circle at top left, #38bdf8, #0ea5e9, #0369a1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #e0f2fe;
+        }
+
+        .result-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .result-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .score-badge {
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(34, 197, 94, 0.7);
+            background: rgba(34, 197, 94, 0.12);
+            color: #bbf7d0;
+        }
+
+        .score-badge-low {
+            border-color: rgba(239, 68, 68, 0.7);
+            background: rgba(239, 68, 68, 0.12);
+            color: #fecaca;
+        }
+
+        .result-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .label-small {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+        <div class="header-row">
+            <div class="logo-block">
+                <div class="logo-badge">🛡️</div>
+                <div>
+                    <div class="logo-text-main">AshyqSabaq</div>
+                    <div class="logo-text-sub">Admin • Ойын нәтижелері</div>
+                </div>
+            </div>
+            <div class="tag">Тек педагогтар / фасилитаторлар үшін</div>
+        </div>
+
+        <div class="layout">
+            <div class="card">
+                <h1>Кіру</h1>
+                <div class="subtitle">Оқушылардың нәтижелер лентасына қолжетімділік</div>
+                <div style="margin-top:10px;">
+                    <label for="admin-email">Админ пошта</label>
+                    <div class="input-row">
+                        <input type="password" id="admin-email" placeholder="мысалы: teacher@school.kz">
+                        <button type="button" id="toggle-email-visibility" class="toggle-visibility-btn">Көрсету</button>
+                    </div>
+                    <div class="helper">Тек мұғалімнің / фасилитатордың қызметтік поштасы. Оқушыларға бұл парақшаны
+                        бермеңіз.</div>
+                    <div id="admin-error" class="error">Пошта қате енгізілді немесе рұқсат етілмеген.</div>
+                </div>
+                <button class="btn btn-primary btn-full" id="admin-login-btn" style="margin-top:10px;">
+                    Кіру
+                </button>
+                <div style="margin-top:14px;">
+                    <div class="label-small">Қысқаша</div>
+                    <div class="helper">
+                        Бұл панель тек оқу мақсатында жасалған. Мұнда оқушылардың жеке аты‑жөні емес, тек
+                        никнеймдері және ойын нәтижелері сақталады.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="results-header-row">
+                    <div>
+                        <h2>Соңғы ойындар</h2>
+                        <div class="subtitle">Нәтижелер Firebase Firestore‑дан алынады</div>
+                    </div>
+                    <div class="pill-muted" id="results-count-pill">0 ойын</div>
+                </div>
+                <div id="results-feed" class="scroll-y">
+                    <div class="feed-empty">Алдымен оң жақтағы панель арқылы жүйеге кіріңіз.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase + загрузка результатов -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import {
+            getFirestore,
+            collection,
+            getDocs,
+            query,
+            orderBy
+        } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        // TODO: сюда вставьте тот же firebaseConfig, что и в charity_game.html
+        const firebaseConfig = {
+        apiKey: "AIzaSyBKzavvc5Qj71EHFazVzc2ux1CiHQ2tPIA",
+    authDomain: "phinishingsim.firebaseapp.com",
+    projectId: "phinishingsim",
+    storageBucket: "phinishingsim.firebasestorage.app",
+    messagingSenderId: "960789134945",
+    appId: "1:960789134945:web:d7736ae85d744ab10eb420"
+  };
+
+        let db = null;
+        try {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+        } catch (e) {
+            console.warn('Firebase init error (admin):', e);
+        }
+
+        async function loadResultsFromFirebase() {
+            if (!db) return [];
+            const q = query(collection(db, "charity_game_results"), orderBy("createdAt", "desc"));
+            const snap = await getDocs(q);
+            const results = [];
+            snap.forEach(doc => {
+                const data = doc.data();
+                const createdAt = data.createdAt && data.createdAt.toMillis
+                    ? data.createdAt.toMillis()
+                    : Date.now();
+                results.push({
+                    id: doc.id,
+                    playerName: data.playerName || 'Аноним',
+                    score: data.score ?? 0,
+                    mistakes: data.mistakes ?? 0,
+                    totalQuestions: data.totalQuestions ?? 5,
+                    createdAt
+                });
+            });
+            return results;
+        }
+
+        window.loadResultsFromFirebase = loadResultsFromFirebase;
+    </script>
+
+    <script>
+        // простой список разрешённых доменов/почт (можно отредактировать под себя)
+        const ALLOWED_EMAIL_DOMAINS = []; // домены сейчас не используются
+        const WHITELIST_EMAILS = ['dimkaserik@gmail.com']; // только эта почта имеет доступ
+
+        const adminEmailInput = document.getElementById('admin-email');
+        const toggleEmailVisibilityBtn = document.getElementById('toggle-email-visibility');
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const adminError = document.getElementById('admin-error');
+        const resultsFeed = document.getElementById('results-feed');
+        const resultsCountPill = document.getElementById('results-count-pill');
+
+        function toDateString(timestampMs) {
+            const d = new Date(timestampMs);
+            return d.toLocaleString('kk-KZ', {
+                day: '2-digit',
+                month: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function appendResultItemToFeed(item) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'result-item';
+
+            const createdLabel = item.createdAt
+                ? toDateString(typeof item.createdAt === 'number' ? item.createdAt : Date.now())
+                : 'уақыты белгісіз';
+
+            const initials = (item.playerName || '?').trim().charAt(0).toUpperCase() || '?';
+            const score = item.score ?? 0;
+            const total = item.totalQuestions ?? 5;
+            const mistakes = item.mistakes ?? (total - score);
+
+            const isLow = score <= 2;
+
+            wrapper.innerHTML = `
+                <div class="result-head">
+                    <div class="result-user">
+                        <div class="result-avatar">${initials}</div>
+                        <div>
+                            <div class="result-name">${item.playerName || 'Аноним'}</div>
+                            <div class="result-meta">${createdLabel}</div>
+                        </div>
+                    </div>
+                    <div class="score-badge ${isLow ? 'score-badge-low' : ''}">
+                        ${score} / ${total}
+                    </div>
+                </div>
+                <div class="result-footer">
+                    <span>Қателер: ${mistakes}</span>
+                    <span>${score >= 4 ? '🟢 Сенімді' : score >= 2 ? '🟡 Орташа' : '🔴 Қауіп‑аймағы'}</span>
+                </div>
+            `;
+
+            resultsFeed.appendChild(wrapper);
+        }
+
+        function renderResultsFeed(items) {
+            if (!Array.isArray(items) || items.length === 0) {
+                resultsFeed.innerHTML = '<div class="feed-empty">Пока ешқандай нәтиже табылмады.</div>';
+                resultsCountPill.textContent = '0 ойын';
+                return;
+            }
+
+            resultsCountPill.textContent = `${items.length} ойын`;
+            resultsFeed.innerHTML = '';
+            items.forEach(item => appendResultItemToFeed(item));
+        }
+
+        function isEmailAllowed(email) {
+            if (!email) return false;
+            const norm = email.trim().toLowerCase();
+            const atIndex = norm.lastIndexOf('@');
+            if (atIndex === -1) return false;
+            const domain = norm.slice(atIndex + 1);
+
+            if (WHITELIST_EMAILS.includes(norm)) return true;
+            if (ALLOWED_EMAIL_DOMAINS.includes(domain)) return true;
+
+            return false;
+        }
+
+        async function handleAdminLogin() {
+            const value = adminEmailInput.value.trim();
+            if (!isEmailAllowed(value)) {
+                adminError.style.display = 'block';
+                return;
+            }
+            adminError.style.display = 'none';
+
+            if (window.loadResultsFromFirebase) {
+                try {
+                    const items = await window.loadResultsFromFirebase();
+                    renderResultsFeed(items);
+                } catch (e) {
+                    console.warn('Firebase load error (admin-page):', e);
+                }
+            }
+        }
+
+        adminLoginBtn.addEventListener('click', handleAdminLogin);
+        adminEmailInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleAdminLogin();
+            }
+        });
+
+        let emailVisible = false;
+        toggleEmailVisibilityBtn.addEventListener('click', () => {
+            emailVisible = !emailVisible;
+            adminEmailInput.type = emailVisible ? 'text' : 'password';
+            toggleEmailVisibilityBtn.textContent = emailVisible ? 'Жасыру' : 'Көрсету';
+        });
+    </script>
+</body>
+
+</html>
